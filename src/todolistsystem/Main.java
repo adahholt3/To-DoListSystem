@@ -22,22 +22,184 @@ public class Main {
 	
 	public static void addTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack)
 {
-	System.out.println("Enter title: ");
-	String title = input.nextLine();
-	
-	System.out.println("Enter Description: ");
-	String desc = input.nextLine();
-	
-	Task task = new SimpleTask(title, desc);
-	
-	manager.addTask(task);
-
-	undoStack.push(new UndoAction("add", task, manager.size()-1));
-	
-	System.out.println("Task added!");
+		System.out.println("Choose task type:");
+		System.out.println("1. Simple Task");
+		System.out.println("2. Priority Task");
+		System.out.println("3. Recurring Task");
+		
+		int type = input.nextInt();
+		input.nextLine();
+		
+		System.out.println("Enter title: ");
+		String title = input.nextLine();
+		
+		System.out.println("Enter description:");
+		String description = input.nextLine();
+		
+		Task task = null;
+		
+		if(type==1)
+		{
+			task = new SimpleTask(title, description);
+		}else if (type==2){
+			System.out.println("Enter priority: ");
+			int priority = input.nextInt();
+			input.nextLine();
+			
+			task = new PriorityTask(title, description,priority);
+		}else if(type==3)
+		{
+			System.out.println("Enter recurrence patter: ");
+			String pattern = input.nextLine();
+			
+			task = new ReccuringTask(title, description, pattern);
+		} else {
+			System.out.println("Invalid task tyoe");
+			return;
+		}
+		manager.addTask(task);
+		undoStack.push(new UndoAction("add", task, manager.size()-1));
+		System.out.println("task added");
 	
 }
+	public static void completeTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack)
+	{
+		manager.displayAllTasks();
+		
+		System.out.println("Enter task index to complete ");
+		int index = input.nextInt();
+		input.nextLine();
+		
+		if(index >= 0 && index < manager.size())
+		{
+			Task task = manager.getTask(index);
+			
+			undoStack.push(new UndoAction("complete", task, index));
+			
+			manager.markTaskComplete(index);
+			
+			System.out.println("Task completed");
+		}else {
+			System.out.println("Invalid index");
+		}
+	}
 	
+	public static void removeTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack)
+	{
+		manager.displayAllTasks();
+		
+		System.out.println("Enter task index to remove:");
+		int index = input.nextInt();
+		input.nextLine();
+		
+		if(index>=0 && index < manager.size())
+		{
+			Task task = manager.getTRask(index);
+			
+			undoStack.push(new UndoAction("remove", task, index));
+			manager.removeTask(index);
+			System.out.println("task removed");
+			
+		}else {
+			System.out.println("Invalid index");
+		}
+	}
+
+	public static void undoLastAction(TaskManager manager, UndoStack undoStack)
+	{
+		if(undoStack.isEmpty()) {
+			System.out.println("Nothing to undo");
+			return;
+		}
+		
+		UndoAction action = undoStack.pop();
+		
+		if(action.getActionType().equals("add")){
+			
+			manager.removeTask(action.getIndex());
+			System.out.println("Undo successful");
+			
+		}else if(action.getActionType().equals("remove"))
+		{
+			manager.addTask(action.getTask());
+			System.out.println("Undo Successful.");
+		}else if(action.getActionType().equals("complete"))
+		{
+			action.getTask().setCompleted(false);
+			System.out.println("Undo Successful");
+		}
+	}
+	
+	public static void loadTodayTasks(TaskManager manager, TaskQueue queue)
+	{
+		queue.clear();
+		
+		for(int i =0; i< manager.size(); i++)
+		{
+			Task task = manager.getTask(i);
+			
+			if(task instanceof RecurringTask)
+			{
+				queue.add(task);
+			}
+		}
+		System.out.println("Topday's tasks loaded into queue");
+	}
+	
+	public static void processNextTask(Scanner input, TaskQueue queue)
+	{
+		if(queue.isEmpty())
+		{
+			System.out.println("Queue is empty");
+			return;
+		}
+		
+		Task task = queue.processNext();
+		
+		System.out.println("Processing task");
+		System.out.println(task);
+		
+		System.out.println("Mark complete? (yes/no):");
+		String answer = input.nextLine();
+		
+		if(answer.equalsIgnoreCase("yes"))
+		{
+			task.markComplete();
+			System.out.println("Task completed");
+		}
+	}
+	
+	public static void filterMenu(Scanner input, TaskManager manager)
+	{
+		System.out.println("Filter by:");
+		System.out.println("1. Completed");
+		System.out.println("2. Incomplete");
+		System.out.println("3. SimpleTask");
+		System.out.println("2. PriorityTask");
+		
+		int choice = input.nextInt();
+		
+		input.nextLine();
+		
+		if(choice==1)
+		{
+			manager.filterByCompetion(true);
+		}else if (choice==2)
+		{
+			manager.filterByCompletion(false);
+		}else if(choice==3)
+		{
+			manager.filterByType("SimpleTask");
+		}else if(choice==4) {
+			manager.filterByType("PriorityTask");
+		}
+		else if(choice ==5)
+		{
+			manager.filterByType("RecurringTask");
+		}else {
+			System.out.println("Invalid filter option");
+		}
+	}
 	
 	public static void main(String[] args) {
 		
@@ -60,31 +222,39 @@ public class Main {
 				switch(choice)
 				{
 				case 1:
+					System.out.println("Add Task Selected.");
 					addTaskMenu(input, manager, undoStack);
 					break;
 				case 2:
+					System.out.println("Display all Selected.");
 					manager.displayAllTasks();
 					break;
 				case 3:
 					System.out.println("Complete Task Selected.");
+					completeTaskMenu(input, manager, undoStack);
 					break;
 				case 4:
 					System.out.println("Remove Task Selected.");
+					removeTaskMenu(input, manager, undoStack);
 					break;
 				case 5:
 					System.out.println("Undo Selected.");
+					undoLastAction(manager, undoStack);
 					break;
 				case 6:
 					System.out.println("Load Queue Selected.");
+					loadTodayTasks(manager, queue);
 					break;
 				case 7:
 					queue.displayQueue();
 					break;
 				case 8:
 					System.out.println("Process Next Selected.");
+					processNextTask(input,queue);
 					break;
 				case 9:
 					System.out.println("Filter Selected.");
+					filterMenu(input, manager);
 					break;
 				case 10:
 					running = false;
