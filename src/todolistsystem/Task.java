@@ -45,7 +45,7 @@ public abstract class Task {
 	
 	
 	// Concrete methods
-	 public void markComplete() { // String task - does this this take in a task 
+	 public void markComplete() { 
 		completed = true; // is boolean field
 	 } 
 	public void setCompleted(boolean completed) {
