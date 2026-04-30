@@ -44,26 +44,16 @@ public abstract class Task {
 		 }
 	
 	
-	 
-	 /**
-	  * public void markComplete(){
-	  * 	completed = true;
-	  * }
-	  * 
-	  * public void setCompleted(boolean completed){
-	  * this.completed=completed;
-	  * }
-	  * 
-	  * 
-	  */
 	// Concrete methods
-	 public void markComplete(String task) { // String task - does this this take in a task 
-		System.out.println("Task : " + completed); // is boolean field
-		 
+	 public void markComplete() { // String task - does this this take in a task 
+		completed = true; // is boolean field
 	 } 
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
 	
 	public String toString() {
-		return getDescriptions(); //either descriptions or title because of string data type
+		return getDescriptions(); 
 	 }
 	
 	 // abstract methods
