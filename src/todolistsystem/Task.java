@@ -1,4 +1,4 @@
-package todolist;
+package todolistsystem;
 
 import java.time.LocalDate;
 
@@ -44,6 +44,18 @@ public abstract class Task {
 		 }
 	
 	
+	 
+	 /**
+	  * public void markComplete(){
+	  * 	completed = true;
+	  * }
+	  * 
+	  * public void setCompleted(boolean completed){
+	  * this.completed=completed;
+	  * }
+	  * 
+	  * 
+	  */
 	// Concrete methods
 	 public void markComplete(String task) { // String task - does this this take in a task 
 		System.out.println("Task : " + completed); // is boolean field

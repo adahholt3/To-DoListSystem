@@ -1,4 +1,4 @@
-package todolist;
+package todolistsystem;
 /**
  * Aamna D.
  */
@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 // Implementation of own ArrayList called MyArrayList - Creating a Data Structure
 
-public class MyArrayList<T extends Comparable <T>> implements Iterable<T> {
+public class MyArrayList<T> implements Iterable<T> {
 	
 	
 	//attributes (backbone data structures)
@@ -105,23 +105,20 @@ public class MyArrayList<T extends Comparable <T>> implements Iterable<T> {
 	
 	
 	//remove
-	public boolean remove(T element) {
-		int index = indexOf(element);
-		
-		if (index == -1) {
-			return false;
-		}
-		
-		for (int i = index; i < size-1; i++) {
-			elements[i] = elements [i+1];
-			
-		elements[size-1] = null;
-		size--;
-		return true;
-		}
-		return false;
+	public T remove(int index) {
+	    Checkindex(index);
 
-	} 
+	    T removed = elements[index];
+
+	    for (int i = index; i < size - 1; i++) {
+	        elements[i] = elements[i + 1];
+	    }
+
+	    elements[size - 1] = null;
+	    size--;
+
+	    return removed;
+	}
 	
 	public boolean contains(T element) {
 		return indexOf(element) >= 0;

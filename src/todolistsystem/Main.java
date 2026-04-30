@@ -1,5 +1,6 @@
 package todolistsystem;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -36,23 +37,29 @@ public class Main {
 		System.out.println("Enter description:");
 		String description = input.nextLine();
 		
+		System.out.println("Due date(YYYY-MM-DD): ");
+		
+		//wut
+		LocalDate date = LocalDate.parse(input.nextLine());
+		
 		Task task = null;
 		
 		if(type==1)
 		{
-			task = new SimpleTask(title, description);
+			task = new SimpleTask(title, description, false, date, 0);
 		}else if (type==2){
-			System.out.println("Enter priority: ");
+			System.out.println("Priority (1-3): ");
 			int priority = input.nextInt();
 			input.nextLine();
 			
-			task = new PriorityTask(title, description,priority);
+			task = new PriorityTask(title, description, false, date, priority);
 		}else if(type==3)
 		{
 			System.out.println("Enter recurrence patter: ");
 			String pattern = input.nextLine();
 			
-			task = new ReccuringTask(title, description, pattern);
+			//EDIT THIS
+			task = new RecurringTask(title, description, false, date, 0, pattern);
 		} else {
 			System.out.println("Invalid task tyoe");
 			return;
@@ -76,7 +83,7 @@ public class Main {
 			
 			undoStack.push(new UndoAction("complete", task, index));
 			
-			manager.markTaskComplete(index);
+			task.markComplete(index);
 			
 			System.out.println("Task completed");
 		}else {
@@ -94,10 +101,11 @@ public class Main {
 		
 		if(index>=0 && index < manager.size())
 		{
-			Task task = manager.getTRask(index);
-			
+			Task task = manager.getTask(index);
 			undoStack.push(new UndoAction("remove", task, index));
+			
 			manager.removeTask(index);
+			
 			System.out.println("task removed");
 			
 		}else {
@@ -125,7 +133,7 @@ public class Main {
 			System.out.println("Undo Successful.");
 		}else if(action.getActionType().equals("complete"))
 		{
-			action.getTask().setCompleted(false);
+			action.getTask().setCompleted(false); //requires fix
 			System.out.println("Undo Successful");
 		}
 	}
@@ -174,30 +182,22 @@ public class Main {
 		System.out.println("Filter by:");
 		System.out.println("1. Completed");
 		System.out.println("2. Incomplete");
-		System.out.println("3. SimpleTask");
-		System.out.println("2. PriorityTask");
+		
 		
 		int choice = input.nextInt();
 		
 		input.nextLine();
 		
-		if(choice==1)
+		boolean completed = (choice ==1);
+		
+		for(int i =0; i<manager.size(); i++)
 		{
-			manager.filterByCompetion(true);
-		}else if (choice==2)
-		{
-			manager.filterByCompletion(false);
-		}else if(choice==3)
-		{
-			manager.filterByType("SimpleTask");
-		}else if(choice==4) {
-			manager.filterByType("PriorityTask");
-		}
-		else if(choice ==5)
-		{
-			manager.filterByType("RecurringTask");
-		}else {
-			System.out.println("Invalid filter option");
+			Task t = manager.getTask(i);
+			
+			if(t.isCompleted()==completed)
+			{
+				System.out.println(t);
+			}
 		}
 	}
 	
@@ -207,7 +207,7 @@ public class Main {
 		
 		TaskManager manager = new TaskManager();
 		UndoStack undoStack = new UndoStack();
-		TaskQuque queue = new TaskQueue();
+		TaskQueue queue = new TaskQueue();
 		
 		boolean running = true;
 		

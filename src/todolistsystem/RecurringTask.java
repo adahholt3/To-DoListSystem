@@ -1,4 +1,4 @@
-package todolist;
+package todolistsystem;
 
 /**
  * Aamna D.
@@ -20,6 +20,15 @@ public class RecurringTask extends Task implements Recurring {
 	}
 	
 // From recurring interface
+	
+	/**
+	 * @Override
+	 * public void setRecurrencePattern(String patter)
+	 * {
+	 * this.recurrencePattern=pattern;
+	 * }
+	 * 
+	 */
 	@Override
 	public void setRecurrencePattern(String patterns) {
 		patterns = recurrencePattern;
@@ -34,13 +43,19 @@ public class RecurringTask extends Task implements Recurring {
 // From tasks
 	@Override
 	public String getTaskType() {
-		
+		/**
+		 * return "RecurringTask";
+		 */
 		return null;
 		// Needs to return simple, priority task or recurring task
 	}
 
 	@Override
 	public String getDetails() {
+		
+		/**
+		 * return getDescriptions() + " (Repeats: " + recurrencePattern + ")";
+ 		 */
 		
 		return null;
 	}
