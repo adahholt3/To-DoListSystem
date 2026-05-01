@@ -21,12 +21,16 @@ public class MyArrayList<T> implements Iterable<T> {
 	public MyArrayList() {
 		elements =(T[]) new Object[DEFAULT_CAPACITY];	//type cast
 	}
-	
+	/*
+	 * Changes the arraylist size based on elements
+	 */
 	private void doubleCapacity() {
 		int newSize = elements.length*2;
 		elements = Arrays.copyOf(elements, newSize);
 	}
-	
+	/*
+	 * Adding an element to the arrayList
+	 */
 	boolean add(T element) {
 		if (size == elements.length) 
 			doubleCapacity();
@@ -104,7 +108,7 @@ public class MyArrayList<T> implements Iterable<T> {
 	}
 	
 	
-	//remove
+	//remove method for the arraylist
 	public T remove(int index) {
 	    Checkindex(index);
 
@@ -123,12 +127,12 @@ public class MyArrayList<T> implements Iterable<T> {
 	public boolean contains(T element) {
 		return indexOf(element) >= 0;
 	}
-
+	/*
+	 * Setting up the iterator for the arrayList
+	 */
 	@Override
 	public Iterator<T> iterator() {
-		
 		return new MyIterator();
-		
 	}
 	
 	private class MyIterator implements Iterator<T> {	//Nested Class -- if u don't want the user to know
@@ -142,7 +146,7 @@ public class MyArrayList<T> implements Iterable<T> {
 		}
 
 		@Override
-		public T next() {
+		public T next() {  // next built-in method for the iterator
 			if (!hasNext())
 			throw new NoSuchElementException();
 		return elements[cursor++];
