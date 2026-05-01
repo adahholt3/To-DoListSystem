@@ -5,9 +5,6 @@ package todolistsystem;
  */
 import java.time.LocalDate;
 
-/**
- * Aamna D.
- */
 public class RecurringTask extends Task implements Recurring {
 
 	private String recurrencePattern;
@@ -21,18 +18,9 @@ public class RecurringTask extends Task implements Recurring {
 	
 // From recurring interface
 	
-	/**
-	 * @Override
-	 * public void setRecurrencePattern(String patter)
-	 * {
-	 * this.recurrencePattern=pattern;
-	 * }
-	 * 
-	 */
 	@Override
 	public void setRecurrencePattern(String patterns) {
-		patterns = recurrencePattern;
-		
+		this.recurrencePattern = patterns ;
 	}
 
 	@Override
@@ -43,21 +31,12 @@ public class RecurringTask extends Task implements Recurring {
 // From tasks
 	@Override
 	public String getTaskType() {
-		/**
-		 * return "RecurringTask";
-		 */
-		return null;
-		// Needs to return simple, priority task or recurring task
+		return "RecurringTask"; // Returns RecurringTask
 	}
 
 	@Override
-	public String getDetails() {
-		
-		/**
-		 * return getDescriptions() + " (Repeats: " + recurrencePattern + ")";
- 		 */
-		
-		return null;
+	public String getDetails() {		
+		return getDescriptions() + "(Repeats: "+recurrencePattern+ ")";;
 	}
 
 }
