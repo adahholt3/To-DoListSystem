@@ -1,12 +1,15 @@
 package todolistsystem;
 /**
  * Aamna D.
+ * Subclass of Task super class and implements the Prioritizable interface
  */
 
 import java.time.LocalDate;
 
 public class PriorityTask extends Task implements Prioritizable {
-
+	/**
+	 * Setting up the constructor method and attributes for the super class (Task)
+	 */
 	public PriorityTask(String title, String descriptions, boolean completed, LocalDate dueDate, int priority) {
 		super(title,descriptions,completed,dueDate,priority);
 	}
@@ -41,7 +44,7 @@ public class PriorityTask extends Task implements Prioritizable {
 
 	@Override
 	String getDetails() {
-		return getDescriptions() + " (Priority: " + getPriority() + ")"; // prints details and priority
+		return getDescriptions() + " (Priority: " + getPriority() + ")"; // returns details and priority
 	}
 
 }
