@@ -14,7 +14,7 @@ public abstract class Task {
 	private LocalDate dueDate;
 	private int priority;
 	
-	//Constructor 
+	//Constructor
 	public Task (String title, String descriptions, boolean completed, LocalDate dueDate, int priority) {
 		this.title = title;
 		this.descriptions = descriptions;
@@ -47,11 +47,11 @@ public abstract class Task {
 	 public void markComplete() { 
 		completed = true; // is boolean field
 	 } 
-	public void setCompleted(boolean completed) {
+	public void setCompleted(boolean completed) { // used to set the a task as completed
 		this.completed = completed;
 	}
 	
-	public String toString() {
+	public String toString() { // return the task info 
 		return "[" + getTaskType() + "]" + getTitle() + " -" + getDescriptions() + "| completed: " + isCompleted();
 	 }
 	
