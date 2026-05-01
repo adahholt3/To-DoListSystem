@@ -73,21 +73,6 @@ public class TaskManager {
 			}
 		}
 		
-		/**
-		 * 
-		 * I fixed the filter methods because they were throwing errors,this is ur original code if u wanna delete
-		 */
-//		// loop thorough tasks and use getTaskType method
-//		for (int i =0; i<tasks.size(); i++) {
-//			Task t = tasks.get(i);
-//			if (t.getTaskType().equals("SimpleTask")) {
-//				System.out.println("Task Type : Simple");
-//			} else if (t.getTaskType().equals("PriorityTask")) {
-//				System.out.println("Task Type : Priority");
-//			} else if (t.getTaskType().equals("RecurringTask")) {
-//				System.out.println("Task Type : Recurring");
-//			}	
-//		}
 	}
 	
 	//Fileter by priority which only works for priotiry tasks
@@ -105,21 +90,7 @@ public class TaskManager {
 			}
 		}
 	}
-	}
-		
-//		
-	//for (int i =0; i < tasks.size(); i++) {
-//			Task t = tasks.get(i);
-//			if (t.getPriority() == 1) {
-//				System.out.println("High");
-//			} else if (t.getPriority() == 2) {
-//				System.out.println("Medium");
-//			} else if (t.getPriority()==3) {
-//				System.out.println("Low");
-//				
-//			}
-//		}
-//	}
-
 }
+		
+
 
