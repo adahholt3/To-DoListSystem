@@ -3,6 +3,9 @@ package todolistsystem;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Main done by Adah Holt
+ */
 public class Main {
 
 	public static void printMenu()
@@ -83,7 +86,7 @@ public class Main {
 			
 			undoStack.push(new UndoAction("complete", task, index));
 			
-			task.markComplete(index);
+			task.markComplete();
 			
 			System.out.println("Task completed");
 		}else {

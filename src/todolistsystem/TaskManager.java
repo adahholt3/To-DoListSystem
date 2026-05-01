@@ -13,7 +13,7 @@ public class TaskManager {
 	}
 	// Create methods for adding,removing etc.
 	 
-	public void addtask (Task task) {
+	public void addTask (Task task) {
 		
 		tasks.add(task);
 		
