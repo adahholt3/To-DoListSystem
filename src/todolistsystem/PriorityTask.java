@@ -29,29 +29,19 @@ public class PriorityTask extends Task implements Prioritizable {
 	}
 
 	@Override
-	/**
-	 * return super.getPriority();
-	 */
 	public int getPriority() {
-		// is this method supposed to be same as the setter because the name is the same
-		return getPriority();
+		return super.getPriority();
 	}
 
 	// Implemented from the Tasks parent class
 	@Override
 	String getTaskType() {
-		/**
-		 * return "PriorityTask";
-		 */
-		return null;
+		return "PriorityTask"; // Return PriorityTask
 	}
 
 	@Override
 	String getDetails() {
-		/**
-		 * return getDescriptions() + " (Priority: " + getPriority() + ")";
- 		 */
-		return this.getDescriptions();
+		return getDescriptions() + " (Priority: " + getPriority() + ")"; // prints details and priority
 	}
 
 }
