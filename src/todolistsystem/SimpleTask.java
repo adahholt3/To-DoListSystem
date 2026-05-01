@@ -15,11 +15,16 @@ public class SimpleTask extends Task {
 	//Override methods from Task class 
 	@Override
 	public String getTaskType() {
-		return "SimpleTask";   //return "SimpleTask";
+		return "SimpleTask";
+		
+		// Need to be fixed should return simple
+		// returns task type would probably be (recurring, simple, priority)
 	}
 
 	@Override
 	public String getDetails() {
 		return getDescriptions();
+	
+
 	}
 }

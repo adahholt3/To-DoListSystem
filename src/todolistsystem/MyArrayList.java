@@ -19,7 +19,7 @@ public class MyArrayList<T> implements Iterable<T> {
 
 	@SuppressWarnings("unchecked")
 	public MyArrayList() {
-		elements =(T[]) new Comparable[DEFAULT_CAPACITY];	//type cast
+		elements =(T[]) new Object[DEFAULT_CAPACITY];	//type cast
 	}
 	
 	private void doubleCapacity() {

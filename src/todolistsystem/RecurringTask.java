@@ -36,7 +36,7 @@ public class RecurringTask extends Task implements Recurring {
 
 	@Override
 	public String getDetails() {		
-		return getDescriptions() + "(Repeats: "+recurrencePattern+ ")";;
+		return getDescriptions() + "(Repeats: "+recurrencePattern+ ")";
 	}
 
 }

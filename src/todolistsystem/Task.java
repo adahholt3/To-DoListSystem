@@ -19,7 +19,6 @@ public abstract class Task {
 		this.title = title;
 		this.descriptions = descriptions;
 		this.completed = completed;
-		this.completed = completed;
 		this.dueDate = dueDate;
 		this.priority = priority;
 	}
@@ -53,7 +52,7 @@ public abstract class Task {
 	}
 	
 	public String toString() {
-		return getDescriptions(); 
+		return "[" + getTaskType() + "]" + getTitle() + " -" + getDescriptions() + "| completed: " + isCompleted();
 	 }
 	
 	 // abstract methods
