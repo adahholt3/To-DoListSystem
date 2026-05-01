@@ -3,8 +3,19 @@ package todolistsystem;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ *  Adah Holt
+ *  
+ *  Menu style inerface where users can interact with the system
+ *  
+ *  it runs in a loop until the user chooses to exit.
+ *  Input validation is used to prevent crashes and to make sure the program continues to run even with invalid input
+ */
 public class Main {
 
+	/*
+	 * Prints the menu for users
+	 */
     public static void printMenu() {
         System.out.println("\n++++++ TO DO LIST ++++++++");
         System.out.println("1. Add Task");
@@ -20,7 +31,14 @@ public class Main {
         System.out.print("Choose an option: ");
     }
 
-    // ================= ADD TASK =================
+    /**
+     * Allows the user to select a task type and enter all required fields for it.
+     * 
+     * The created task is added to the TaskManager and recorded in the UndoStacl so it can be undone later.
+     * @param input Scanner for user input
+     * @param manager manages the list of tasks
+     * @param undoStack stores actions for undo
+     */
     public static void addTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack) {
 
         System.out.println("Choose task type:");
@@ -42,7 +60,7 @@ public class Main {
         System.out.println("Enter description:");
         String description = input.nextLine();
 
-        // ===== DATE INPUT =====
+       
         LocalDate date = null;
         while (date == null) {
             System.out.print("Due date (YYYY-MM-DD): ");
@@ -98,7 +116,16 @@ public class Main {
         System.out.println("Task added successfully.");
     }
 
-    // ================= COMPLETE =================
+   /**
+    * Marks a selected task as complete
+    * 
+    * Displays all tasks, allows the user to choose an index
+    *  and updates the tasks completion status
+    *  The action is recorded in the UndoStack for reversal
+    * @param input Scanner for user input
+    * @param manager manages tasks
+    * @param undoStack stores undoActions
+    */
     public static void completeTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack) {
 
         manager.displayAllTasks();
@@ -123,7 +150,15 @@ public class Main {
         }
     }
 
-    // ================= REMOVE =================
+    /**
+     * Removes task from the list
+     * 
+     * Displays all tasks and allows the user to select by index. 
+     * The removed task is stored in the UndoStack so it can be restored
+     * @param input Scanner for user inut
+     * @param manager manages tasks
+     * @param undoStack stores undo action
+     */
     public static void removeTaskMenu(Scanner input, TaskManager manager, UndoStack undoStack) {
 
         manager.displayAllTasks();
@@ -148,7 +183,14 @@ public class Main {
         }
     }
 
-    // ================= UNDO =================
+   /**
+    * Reverses the most recent actionperformed by the user
+    * 
+    * Uses the UndoStack to retrive the last action and performs the opposite operation.
+    * 
+    * @param manager manages tasks
+    * @param undoStack stores undo actions
+    */
     public static void undoLastAction(TaskManager manager, UndoStack undoStack) {
 
         if (undoStack.isEmpty()) {
@@ -171,7 +213,14 @@ public class Main {
         System.out.println("Undo successful.");
     }
 
-    // ================= QUEUE =================
+    /**
+     * Loads recurring tasks into the queue
+     * 
+     * clears the current queue and adds all RecurringTask objects from the main task list. 
+     * This is what perpares the tasks for processing
+     * @param manager manages tasks
+     * @param queue queue used for processing tasks
+     */
     public static void loadTodayTasks(TaskManager manager, TaskQueue queue) {
 
         queue.clear();
@@ -187,6 +236,14 @@ public class Main {
         System.out.println("Today's tasks loaded into queue.");
     }
 
+    /**
+     * Processes the next task in the queue.
+     * 
+     * Removes the first task and displays it to user.
+     * The user can choose to mark it as complete
+     * @param input scanner for user input
+     * @param queue queue of tasks to process
+     */
     public static void processNextTask(Scanner input, TaskQueue queue) {
 
         if (queue.isEmpty()) {
@@ -208,7 +265,16 @@ public class Main {
         }
     }
 
-    // ================= FILTER =================
+
+    /**
+     * Provides options to filter tasks
+     * 
+     * It allows filtering by completion status, task type, and priority level
+     * 
+     * Calls methods in TaskManager to display results
+     * @param input Scanner for user input
+     * @param managermanages tasks
+     */
     public static void filterMenu(Scanner input, TaskManager manager) {
 
         System.out.println("\nFilter Options:");
@@ -253,7 +319,16 @@ public class Main {
         }
     }
 
-    // ================= MAIN LOOP =================
+   /**
+    * Where users interact with program
+    * 
+    * Runs a loop that continuously displays the menu and processes user input
+    * until the user chooses to exit
+    * 
+    * uses the try/catch and input vaidation to prevent crashes
+    * because that was a problem I had to fix 
+    * @param args
+    */
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -316,7 +391,7 @@ public class Main {
 
                 case 10:
                     running = false;
-                    System.out.println("Goodbye!");
+                    System.out.println("Bye Bye :3");
                     break;
 
                 default:
